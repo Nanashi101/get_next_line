@@ -1,2 +1,2 @@
 # get_next_line
- A funvtion that returns a line every time you call it
+ A function that returns a line every time you call it
