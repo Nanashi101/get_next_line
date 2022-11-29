@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jael-mor <jael-mor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 10:20:57 by jael-mor          #+#    #+#             */
-/*   Updated: 2022/11/30 00:16:00 by jael-mor         ###   ########.fr       */
+/*   Created: 2022/11/30 00:20:31 by jael-mor          #+#    #+#             */
+/*   Updated: 2022/11/30 00:30:14 by jael-mor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*free_all(char *data, char *buffer)
 {
@@ -88,27 +88,15 @@ static char	*rest_save(char	*data)
 
 char	*get_next_line(int fd)
 {
-	static char	*data;
+	static char	*data[FD_MAX];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	data = readfile(fd, data);
-	if (!data)
+	data[fd] = readfile(fd, data[fd]);
+	if (!data[fd])
 		return (NULL);
-	line = ft_get_line(data);
-	data = rest_save(data);
+	line = ft_get_line(data[fd]);
+	data[fd] = rest_save(data[fd]);
 	return (line);
 }
-
-// int main()
-// {
-// 	int fd = open("test.txt",O_RDONLY);
-// 	printf("%s",get_next_line(fd));
-// 	printf("%s",get_next_line(fd));
-// 	printf("%s",get_next_line(fd));
-// 	printf("%s",get_next_line(fd));
-// 	printf("%s",get_next_line(fd));
-// 	printf("%s",get_next_line(fd));
-
-// }
