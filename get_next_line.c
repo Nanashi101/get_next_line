@@ -6,7 +6,7 @@
 /*   By: jael-mor <jael-mor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:20:57 by jael-mor          #+#    #+#             */
-/*   Updated: 2022/11/28 23:37:10 by jael-mor         ###   ########.fr       */
+/*   Updated: 2022/11/29 21:10:47 by jael-mor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*free_all(char *data, char *buffer)
 static char	*readfile(int fd, char *data)
 {
 	char	*buffer;
-	int		count;
+	ssize_t		count;
 	
 	
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
@@ -31,19 +31,19 @@ static char	*readfile(int fd, char *data)
 	if (!data)
 		data = ft_strdup("");
 	count = 1;
-	while(count > 0)
+	while(ft_strchr(data, '\n') == -1 && count != 0)
 	{
 		count = read(fd, buffer, BUFFER_SIZE);
-		if (count <= 0 && !data)
-			return (free(buffer), NULL);
-		else if (count == 0 && data[0] == '\0')
-			break ;
-		else if (count == -1 && data)
-			return(data = free_all(data, buffer));
+		if (count == -1 && data)
+			return(free_all(data, buffer));
+		else if (count <= 0 && !data[0])
+			return (free_all(data, buffer));
+		else if (count == 0 && data)
+			break; 
 		buffer[count] = '\0';
 		data = ft_join(data, buffer);
-		if(ft_strchr(buffer, '\n'))
-			break;
+		if (!data)
+			return (NULL);
 	}
 	free(buffer);
 	return(data);
@@ -54,15 +54,18 @@ static char	*ft_get_line(char	*data)
 	int		i;
 	char	*s;
 
-	i = 0;
-	if (!ft_strchr(data, '\n'))
+	i = ft_strchr(data, '\n');
+	if (i == -1)
 		return (data);
-	while (data[i] && data[i] != '\n')
-		i++;
-	s = malloc (i + 1);
-	ft_strlcpy(s, data, i + 2);
-	if (s[0] == '\0')
-		return (free(s), NULL);
+	else
+	{
+		s = malloc ((i + 2) * sizeof(char));
+		if(!s)
+			return (NULL);
+		ft_strlcpy(s, data, i + 2);
+	// if (s[0] == '\0')
+	// 	return (free(s), NULL);
+	}
 	return (s);
 }
 
@@ -71,21 +74,24 @@ static char	*rest_save(char	*data)
 	int		i;
 	char	*s;
 
-	i = 0;
-	if (!ft_strchr(data, '\n'))
+	i = ft_strchr(data, '\n');
+	if (i == -1)
 		return (NULL);
-		
-	while (data[i] != '\n')
+	else
+	{	
+	// while (data[i] != '\n')
+	// 	i++;
+	// if (data[i] == '\0')
+	// 	return (free(data), NULL);
+	// i++;
+		s = malloc((ft_strlen(data) - i + 1) * sizeof(char));
+		if (!s)
+			return (NULL);
 		i++;
-	if (data[i] == '\0')
-		return (free(data), NULL);
-	i++;
-	s = malloc((ft_strlen(data) - i + 1) * sizeof(char));
-	if (!s)
-		return (NULL);
-	ft_strlcpy(s, data + i, ft_strlen(data) - i + 2);
-	free(data);
-	return (s);
+		ft_strlcpy(s, data + i, ft_strlen(data) - i + 2);
+		free(data);
+	}
+		return (s);
 }
 
 char	*get_next_line(int fd)
@@ -93,18 +99,18 @@ char	*get_next_line(int fd)
 	static char	*data;
 	char		*line;
 	
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	data = readfile(fd, data);
 	if (!data)
 		return (NULL);
 	line = ft_get_line(data);
 	data = rest_save(data);
-	if (line[0] == '\0')
-	{
-		free_all (line,data);
-		return(NULL);
-	}
+	// if (line[0] == '\0')
+	// {
+	// 	free_all (line,data);
+	// 	return(NULL);
+	// }
 	return(line);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jael-mor <jael-mor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:27:14 by jael-mor          #+#    #+#             */
-/*   Updated: 2022/11/28 23:31:58 by jael-mor         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:49:57 by jael-mor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ size_t	ft_strlcpy(char *dst,  char *src, size_t dstsize)
 	return (len);
 }
 
-char	*ft_strchr(char *s, int c)
+int	ft_strchr(char *s, char c)
 {
 	size_t	i;
 	size_t	size;
@@ -86,9 +86,9 @@ char	*ft_strchr(char *s, int c)
 	size = ft_strlen(s) + 1;
 	while (i < size)
 	{
-		if (s[i] == (char)c)
-			return ((char *)s + i);
+		if (s[i] == c)
+			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
