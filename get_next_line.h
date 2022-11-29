@@ -6,7 +6,7 @@
 /*   By: jael-mor <jael-mor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:21:50 by jael-mor          #+#    #+#             */
-/*   Updated: 2022/11/26 22:36:53 by jael-mor         ###   ########.fr       */
+/*   Updated: 2022/11/28 23:32:11 by jael-mor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ char	*ft_strdup(char *src);
 int		ft_strlen(char *str);
 char	*ft_join(char *data, char *buffer);
 char	*ft_strchr(char *s, int c);
-char	*rest_save(char	*data);
-char	*ft_get_line(char	*data);
 
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
 

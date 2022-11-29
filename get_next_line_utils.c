@@ -6,7 +6,7 @@
 /*   By: jael-mor <jael-mor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:27:14 by jael-mor          #+#    #+#             */
-/*   Updated: 2022/11/26 22:11:05 by jael-mor         ###   ########.fr       */
+/*   Updated: 2022/11/28 23:31:58 by jael-mor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ char	*ft_join(char *data, char *buffer)
 	size_t	i;
 	char	*new;
 
-	if (!data || !buffer)
-		return (0);
 	new = (malloc(ft_strlen((char *)data) + ft_strlen((char *)buffer) + 1));
 	if (!new)
-		return (0);
+		return (NULL);
 	i = ft_strlen(data);
 	ft_strlcpy(new, data, i + 1);
 	ft_strlcpy(new + i, buffer, ft_strlen(buffer) + 1);
