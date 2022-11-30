@@ -6,20 +6,20 @@
 /*   By: jael-mor <jael-mor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:20:57 by jael-mor          #+#    #+#             */
-/*   Updated: 2022/11/30 00:16:00 by jael-mor         ###   ########.fr       */
+/*   Updated: 2022/11/30 21:22:28 by jael-mor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*free_all(char *data, char *buffer)
+char	*free_all(char *data, char *buffer)
 {
 	free(data);
 	free(buffer);
 	return (NULL);
 }
 
-static char	*readfile(int fd, char *data)
+char	*readfile(int fd, char *data)
 {
 	char	*buffer;
 	ssize_t	count;
@@ -48,7 +48,7 @@ static char	*readfile(int fd, char *data)
 	return (data);
 }
 
-static char	*ft_get_line(char	*data)
+char	*ft_get_line(char	*data)
 {
 	int		i;
 	char	*s;
@@ -66,7 +66,7 @@ static char	*ft_get_line(char	*data)
 	return (s);
 }
 
-static char	*rest_save(char	*data)
+char	*rest_save(char	*data)
 {
 	int		i;
 	char	*s;

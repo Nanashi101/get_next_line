@@ -6,20 +6,20 @@
 /*   By: jael-mor <jael-mor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:20:31 by jael-mor          #+#    #+#             */
-/*   Updated: 2022/11/30 00:30:14 by jael-mor         ###   ########.fr       */
+/*   Updated: 2022/11/30 21:24:00 by jael-mor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-static char	*free_all(char *data, char *buffer)
+char	*free_all(char *data, char *buffer)
 {
 	free(data);
 	free(buffer);
 	return (NULL);
 }
 
-static char	*readfile(int fd, char *data)
+char	*readfile(int fd, char *data)
 {
 	char	*buffer;
 	ssize_t	count;
@@ -48,7 +48,7 @@ static char	*readfile(int fd, char *data)
 	return (data);
 }
 
-static char	*ft_get_line(char	*data)
+char	*ft_get_line(char	*data)
 {
 	int		i;
 	char	*s;
@@ -66,7 +66,7 @@ static char	*ft_get_line(char	*data)
 	return (s);
 }
 
-static char	*rest_save(char	*data)
+char	*rest_save(char	*data)
 {
 	int		i;
 	char	*s;
@@ -100,3 +100,16 @@ char	*get_next_line(int fd)
 	data[fd] = rest_save(data[fd]);
 	return (line);
 }
+
+// int main()
+// {
+// 	int fd1 = open("test.txt",O_RDONLY);
+// 	int fd2 = open("testt.txt",O_RDONLY);
+// 	int fd3 = open("testtt.txt",O_RDONLY);
+// 	printf("%s",get_next_line(fd1));
+// 	printf("%s",get_next_line(fd2));
+// 	printf("%s",get_next_line(fd3));
+// 	printf("%s",get_next_line(fd1));
+// 	printf("%s",get_next_line(fd2));
+// 	printf("%s",get_next_line(fd3));
+// }
